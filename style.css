@@ -1,393 +1,100 @@
-/* ============================================================
-   DRAW STEEL — FULL PARCHMENT THEME OVERHAUL
-   Styled to look like the real physical character sheet
-   ============================================================ */
+/* ===============================
+   GLOBAL
+=============================== */
 
-/* -----------------------------
-   Load fonts (system-safe defaults)
-   ----------------------------- */
 body {
-    font-family: "Cormorant Garamond", "Georgia", serif;
-    color: #2a2218;
-    margin: 0;
-    padding: 0;
-    background: url("images/parchment.png") repeat;
-    background-size: 900px;
-    -webkit-font-smoothing: antialiased;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #111;
+  color: #eee;
 }
 
-/* Ink-border aesthetic */
-:root {
-    --ink: #2a2218;
-    --ink-light: #3a3024;
-    --ink-faint: #6b5c45;
-    --ink-dark: #2a2218; /* FIXED missing variable */
-
-    --panel-bg: rgba(255,255,255,0.35);
-    --panel-outline: rgba(0,0,0,0.45);
-
-    --accent: #5c1e1e; /* deep ink red */
-    --accent-dark: #3a0f0f;
-
-    --radius: 4px;
+.no-scroll {
+  overflow: hidden;
 }
 
-/* --------------------------------
-   THE APP CONTAINER (REQUIRED)
-   -------------------------------- */
-#app {
-    position: relative;
-    z-index: 1;
+/* ===============================
+   MODAL
+=============================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
 
-/* --------------------------------
-   HEADER
-   -------------------------------- */
-.app-header {
-    text-align: center;
-    padding: 20px 0 12px;
-    font-size: 28px;
-    font-weight: bold;
-    letter-spacing: 3px;
-    color: var(--ink);
-    border-bottom: 3px double var(--ink);
-    margin-bottom: 8px;
-    background: rgba(255,255,255,0.25);
+.modal-overlay.hidden {
+  display: none;
 }
 
-/* --------------------------------
-   TAB BAR (top navigation)
-   -------------------------------- */
-.tab-bar {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 2px solid var(--ink);
-    background: rgba(255,255,255,0.25);
-    padding: 0;
+.modal-window {
+  background: #1e1e1e;
+  width: 90%;
+  max-width: 420px;
+  max-height: 80vh;
+  padding: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(0,0,0,0.6);
 }
 
-.tab-btn {
-    flex: 1;
-    padding: 12px 0;
-    text-align: center;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 17px;
-    letter-spacing: 1px;
-    font-weight: 600;
-    color: var(--ink);
+#modalTitle {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
 }
 
-.tab-btn.active {
-    background: rgba(255,255,255,0.55);
-    border-bottom: 3px solid var(--accent);
-    color: var(--accent-dark);
+.modal-content {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 10px;
 }
 
-/* --------------------------------
-   TAB SCREEN VISIBILITY (REQUIRED)
-   -------------------------------- */
-.screen {
-    display: none !important;
-    padding: 14px;
-    position: relative;
-    z-index: 1;
+#modalClose {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  background: #333;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.screen.active {
-    display: block !important;
+#modalClose:hover {
+  background: #444;
 }
 
-/* --------------------------------
-   PANELS (sheet boxes)
-   -------------------------------- */
-.panel {
-    background: var(--panel-bg);
-    border: 2px solid var(--panel-outline);
-    border-radius: var(--radius);
-    padding: 14px;
-    margin: 16px 0;
-    box-shadow: 0 0 6px rgba(0,0,0,0.25);
+/* ===============================
+   CHARACTER & ABILITIES
+=============================== */
+
+.abilityItem {
+  padding: 10px;
+  background: #222;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
-/* Section headers mimic printed sheet style */
-.panel > h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--ink-dark);
-    border-bottom: 2px solid var(--ink);
-    padding-bottom: 4px;
+.abilityItem b {
+  font-size: 1.1rem;
 }
 
-/* --------------------------------
-   INPUT FIELDS
-   -------------------------------- */
-label {
-    display: block;
-    margin-bottom: 12px;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 0.6px;
+button {
+  background: #444;
+  color: white;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-input[type="text"],
-input[type="number"],
-textarea,
-select {
-    width: 100%;
-    padding: 6px 8px;
-    background: rgba(255,255,255,0.55);
-    border: 2px solid var(--ink-faint);
-    border-radius: 4px;
-    font-size: 16px;
-    font-family: "Cormorant Garamond", serif;
-    color: var(--ink-dark);
-}
-
-/* Handmade look for textareas */
-textarea {
-    min-height: 90px;
-    resize: vertical;
-}
-
-/* --------------------------------
-   SPECIAL GRID FORMATTING FOR SHEET
-   -------------------------------- */
-.sheet-core {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.sheet-core-row {
-    display: flex;
-    gap: 12px;
-}
-
-.sheet-core-row label {
-    flex: 1;
-}
-
-/* Victories bar area */
-.victory-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 4px;
-}
-
-.victory-value {
-    padding: 6px 12px;
-    background: rgba(255,255,255,0.6);
-    border: 2px solid var(--ink);
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 4px;
-}
-
-/* --------------------------------
-   ATTRIBUTE ROWS + buttons
-   -------------------------------- */
-.attr-control {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.btn-small {
-    padding: 4px 8px;
-    font-size: 14px;
-}
-
-/* --------------------------------
-   CONDITIONS GRID (tickboxes)
-   -------------------------------- */
-.conditions-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px 12px;
-}
-
-.conditions-grid label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 15px;
-}
-
-/* --------------------------------
-   BUTTONS (ink style)
-   -------------------------------- */
-.btn-primary {
-    background: var(--accent);
-    color: white;
-    padding: 8px 14px;
-    border: 2px solid var(--accent-dark);
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
-    letter-spacing: 0.6px;
-}
-
-.btn-primary:hover {
-    background: var(--accent-dark);
-}
-
-.btn-secondary {
-    background: rgba(255,255,255,0.5);
-    color: var(--ink-dark);
-    padding: 6px 12px;
-    border: 2px solid var(--ink-faint);
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn-secondary:hover {
-    background: rgba(255,255,255,0.75);
-}
-
-/* --------------------------------
-   MODALS
-   -------------------------------- */
-.modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 50;
-}
-
-.modal.hidden {
-    display: none;
-}
-
-.modal-box {
-    background: var(--panel-bg);
-    border: 3px solid var(--ink);
-    padding: 20px;
-    width: 90%;
-    max-width: 440px;
-    border-radius: 6px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.4);
-}
-
-/* --------------------------------
-   ABILITY CARDS
-   -------------------------------- */
-.ability-card {
-    border: 2px solid var(--ink);
-    border-radius: 4px;
-    background: rgba(255,255,255,0.55);
-    margin-bottom: 18px;
-    overflow: hidden;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.25);
-}
-
-.ability-header {
-    background: var(--accent);
-    color: white;
-    padding: 8px;
-    font-size: 18px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 600;
-}
-
-.ability-body {
-    padding: 12px;
-    color: var(--ink-dark);
-    font-size: 15px;
-}
-
-.ability-footer {
-    padding: 10px;
-    border-top: 2px solid var(--ink-faint);
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-}
-
-/* --------------------------------
-   COLLAPSIBLE SECTIONS (background tab)
-   -------------------------------- */
-.collapse-header {
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-    padding: 8px;
-    background: rgba(255,255,255,0.4);
-    border: 2px solid var(--ink);
-    border-radius: 4px;
-    font-weight: 600;
-}
-
-.collapse-body {
-    display: none;
-    padding: 10px 4px;
-}
-
-.collapse-body.open {
-    display: block;
-}
-
-/* --------------------------------
-   SKILL TAGS
-   -------------------------------- */
-.skill-tag {
-    display: inline-block;
-    background: var(--accent);
-    color: #fff;
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin: 2px;
-    font-size: 14px;
-}
-
-.remove-btn {
-    font-weight: bold;
-    color: var(--accent);
-    margin-left: 6px;
-    cursor: pointer;
-}
-
-/* --------------------------------
-   BUILDER WIZARD
-   -------------------------------- */
-.builder-step {
-    border: 2px solid var(--ink);
-    background: var(--panel-bg);
-    padding: 16px;
-    border-radius: 6px;
-    margin-bottom: 18px;
-}
-
-.builder-nav {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 14px;
-}
-
-.progress-dots {
-    text-align: center;
-    margin: 14px 0;
-}
-
-.progress-dots span {
-    width: 10px;
-    height: 10px;
-    display: inline-block;
-    background: rgba(0,0,0,0.2);
-    border-radius: 50%;
-    margin: 0 3px;
-}
-
-.progress-dots span.active {
-    background: var(--accent);
+button:hover {
+  background: #555;
 }

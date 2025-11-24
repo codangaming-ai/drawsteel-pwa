@@ -273,3 +273,93 @@ textarea {
     padding: 4px 8px;
     font-size: 13px;
 }
+/* ===== Sheet Layout Enhancements ===== */
+
+.sheet-core {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sheet-core-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.sheet-core-row label {
+    flex: 1;
+    min-width: 120px;
+}
+
+.sheet-core-name {
+    align-items: flex-end;
+}
+
+.sheet-core-name label {
+    flex: 3;
+}
+
+.sheet-core-level {
+    flex: 1;
+}
+
+/* Two-column row (e.g., Attributes vs Potencies) */
+.sheet-row-two-col {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.sheet-attrs {
+    flex: 2 1 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sheet-attrs label {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.sheet-attrs label input {
+    max-width: 80px;
+}
+
+/* Potencies box */
+.sheet-potencies {
+    flex: 1 1 140px;
+}
+
+.potency-box {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 8px;
+    background: #fff;
+    box-shadow: var(--shadow);
+}
+
+.potency-box h3 {
+    margin: 0 0 6px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Conditions grid */
+.conditions-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    margin-top: 6px;
+}
+
+.conditions-grid label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 120px;
+    font-size: 14px;
+}

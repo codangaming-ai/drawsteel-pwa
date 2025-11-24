@@ -1,7 +1,7 @@
 {
   "name": "Draw Steel Character Sheet",
   "short_name": "Draw Steel",
-  "start_url": "/",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#f7f4ef",
   "theme_color": "#b30000",

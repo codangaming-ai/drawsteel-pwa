@@ -397,7 +397,6 @@ function renderSheetScreen() {
   });
   qs("#char-subclass").addEventListener("input", (e) => { character.subclass = e.target.value; saveCharacter(); });
   qs("#char-level").addEventListener("input", (e) => { character.level = parseInt(e.target.value || "1", 10); saveCharacter(); });
-  qs("#char-victories").addEventListener("input", (e) => { character.victories = parseInt(e.target.value || "0", 10); saveCharacter(); });
   qs("#char-wealth").addEventListener("input", (e) => { character.wealth = parseInt(e.target.value || "0", 10); saveCharacter(); });
   qs("#char-renown").addEventListener("input", (e) => { character.renown = parseInt(e.target.value || "0", 10); saveCharacter(); });
   qs("#char-xp").addEventListener("input", (e) => { character.xp = parseInt(e.target.value || "0", 10); saveCharacter(); });

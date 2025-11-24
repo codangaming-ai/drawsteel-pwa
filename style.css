@@ -363,3 +363,14 @@ textarea {
     min-width: 120px;
     font-size: 14px;
 }
+.attr-control {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+}
+
+.attr-control input {
+    max-width: 60px;
+    text-align: center;
+}

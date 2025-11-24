@@ -400,6 +400,21 @@ function renderSheetScreen() {
   qs("#char-wealth").addEventListener("input", (e) => { character.wealth = parseInt(e.target.value || "0", 10); saveCharacter(); });
   qs("#char-renown").addEventListener("input", (e) => { character.renown = parseInt(e.target.value || "0", 10); saveCharacter(); });
   qs("#char-xp").addEventListener("input", (e) => { character.xp = parseInt(e.target.value || "0", 10); saveCharacter(); });
+const victoriesValueEl = qs("#victories-value");
+const victoriesPlusBtn = qs("#victories-plus");
+const victoriesResetBtn = qs("#victories-reset");
+
+victoriesPlusBtn.addEventListener("click", () => {
+  character.victories = (character.victories || 0) + 1;
+  saveCharacter();
+  victoriesValueEl.textContent = character.victories;
+});
+
+victoriesResetBtn.addEventListener("click", () => {
+  character.victories = 0;
+  saveCharacter();
+  victoriesValueEl.textContent = character.victories;
+});
 
   ["might","agility","reason","intuition","presence"].forEach((attr) => {
     const id = "attr-" + attr;

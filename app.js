@@ -327,36 +327,52 @@ function renderSheetScreen() {
   container.appendChild(panel);
 
   // === ATTRIBUTES & POTENCIES ===
-  const attrsPanel = makeElement("div", "panel");
+    const attrsPanel = makeElement("div", "panel");
   attrsPanel.innerHTML = `
     <h2>Attributes & Potencies</h2>
-    <div class="sheet-row-two-col">
-      <div class="sheet-attrs">
-        <label>Might
-          <input type="number" id="attr-might" value="${c.attributes.might}">
-        </label>
-        <label>Agility
-          <input type="number" id="attr-agility" value="${c.attributes.agility}">
-        </label>
-        <label>Reason
-          <input type="number" id="attr-reason" value="${c.attributes.reason}">
-        </label>
-        <label>Intuition
-          <input type="number" id="attr-intuition" value="${c.attributes.intuition}">
-        </label>
-        <label>Presence
-          <input type="number" id="attr-presence" value="${c.attributes.presence}">
-        </label>
+
+    <label>Might
+      <div class="attr-control">
+        <button type="button" class="btn-secondary btn-small" data-attr="might" data-delta="-1">-</button>
+        <input type="number" id="attr-might" value="${c.attributes.might}">
+        <button type="button" class="btn-secondary btn-small" data-attr="might" data-delta="1">+</button>
       </div>
-      <div class="sheet-potencies">
-        <div class="potency-box">
-          <h3>Potencies</h3>
-          <p>Weak: ${c.potencies.weak}</p>
-          <p>Average: ${c.potencies.average}</p>
-          <p>Strong: ${c.potencies.strong}</p>
-        </div>
+    </label>
+
+    <label>Agility
+      <div class="attr-control">
+        <button type="button" class="btn-secondary btn-small" data-attr="agility" data-delta="-1">-</button>
+        <input type="number" id="attr-agility" value="${c.attributes.agility}">
+        <button type="button" class="btn-secondary btn-small" data-attr="agility" data-delta="1">+</button>
       </div>
-    </div>
+    </label>
+
+    <label>Reason
+      <div class="attr-control">
+        <button type="button" class="btn-secondary btn-small" data-attr="reason" data-delta="-1">-</button>
+        <input type="number" id="attr-reason" value="${c.attributes.reason}">
+        <button type="button" class="btn-secondary btn-small" data-attr="reason" data-delta="1">+</button>
+      </div>
+    </label>
+
+    <label>Intuition
+      <div class="attr-control">
+        <button type="button" class="btn-secondary btn-small" data-attr="intuition" data-delta="-1">-</button>
+        <input type="number" id="attr-intuition" value="${c.attributes.intuition}">
+        <button type="button" class="btn-secondary btn-small" data-attr="intuition" data-delta="1">+</button>
+      </div>
+    </label>
+
+    <label>Presence
+      <div class="attr-control">
+        <button type="button" class="btn-secondary btn-small" data-attr="presence" data-delta="-1">-</button>
+        <input type="number" id="attr-presence" value="${c.attributes.presence}">
+        <button type="button" class="btn-secondary btn-small" data-attr="presence" data-delta="1">+</button>
+      </div>
+    </label>
+
+    <p>Potencies (auto-calculated from highest attribute):</p>
+    <p>Weak: ${c.potencies.weak} | Average: ${c.potencies.average} | Strong: ${c.potencies.strong}</p>
   `;
   container.appendChild(attrsPanel);
 

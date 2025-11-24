@@ -1,0 +1,14 @@
+{
+  "name": "Draw Steel Character Sheet",
+  "short_name": "Draw Steel",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f4ef",
+  "theme_color": "#b30000",
+  "description": "A full-featured Draw Steel character sheet and builder.",
+  "icons": [
+    { "src": "icons/icon_192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon_512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}

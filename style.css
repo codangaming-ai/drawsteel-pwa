@@ -1,0 +1,250 @@
+:root {
+    --paper-bg: #f7f4ef;
+    --paper-panel: #faf7f2;
+    --border-color: #111;
+    --accent-red: #b30000;
+    --accent-red-dark: #800000;
+    --text-dark: #222;
+    --header-bg: #000;
+    --header-text: #ffffff;
+    --radius: 6px;
+    --shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+body {
+    background: var(--paper-bg);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-dark);
+    -webkit-font-smoothing: antialiased;
+}
+
+.app-header {
+    background: var(--header-bg);
+    padding: 16px;
+    text-align: center;
+    border-bottom: 3px solid var(--accent-red);
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: var(--header-text);
+    letter-spacing: 1px;
+}
+
+.tab-bar {
+    display: flex;
+    border-bottom: 2px solid var(--border-color);
+    background: #fff;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 0;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--text-dark);
+}
+
+.tab-btn.active {
+    border-bottom: 3px solid var(--accent-red);
+    font-weight: bold;
+    color: var(--accent-red-dark);
+}
+
+.screen {
+    display: none;
+    padding: 14px;
+}
+
+.screen.active {
+    display: block;
+}
+
+.panel {
+    background: var(--paper-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 12px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+}
+
+.collapse-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 8px;
+    background: #fff;
+    border-radius: var(--radius);
+    border: 1px solid #ddd;
+}
+
+.collapse-header:hover {
+    background: #f3f3f3;
+}
+
+.collapse-body {
+    padding: 10px;
+    display: none;
+}
+
+.collapse-body.open {
+    display: block;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 15px;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.ability-card {
+    background: #fff;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.ability-header {
+    background: var(--accent-red);
+    color: #fff;
+    padding: 8px;
+    font-weight: bold;
+}
+
+.ability-body {
+    padding: 12px;
+    color: var(--text-dark);
+}
+
+.ability-footer {
+    padding: 10px;
+    text-align: right;
+    border-top: 1px solid #ddd;
+}
+
+.btn-primary {
+    background: var(--accent-red);
+    color: #fff;
+    padding: 8px 14px;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: var(--accent-red-dark);
+}
+
+.btn-secondary {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    padding: 8px 14px;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: var(--radius);
+    width: 90%;
+    max-width: 420px;
+    box-shadow: var(--shadow);
+}
+
+.modal-buttons {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.builder-step {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    padding: 14px;
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+}
+
+.builder-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+}
+
+.progress-dots {
+    text-align: center;
+    margin: 16px 0;
+}
+
+.progress-dots span {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    background: #ddd;
+    border-radius: 50%;
+    margin: 0 4px;
+}
+
+.progress-dots span.active {
+    background: var(--accent-red);
+}
+
+.skill-tag {
+    display: inline-block;
+    background: var(--accent-red);
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: var(--radius);
+    margin: 3px;
+    font-size: 13px;
+}
+
+.remove-btn {
+    color: var(--accent-red);
+    font-weight: bold;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}

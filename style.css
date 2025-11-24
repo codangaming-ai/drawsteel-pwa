@@ -21,6 +21,7 @@ body {
     --ink: #2a2218;
     --ink-light: #3a3024;
     --ink-faint: #6b5c45;
+    --ink-dark: #2a2218; /* FIXED missing variable */
 
     --panel-bg: rgba(255,255,255,0.35);
     --panel-outline: rgba(0,0,0,0.45);
@@ -29,6 +30,14 @@ body {
     --accent-dark: #3a0f0f;
 
     --radius: 4px;
+}
+
+/* --------------------------------
+   THE APP CONTAINER (REQUIRED)
+   -------------------------------- */
+#app {
+    position: relative;
+    z-index: 1;
 }
 
 /* --------------------------------
@@ -74,6 +83,20 @@ body {
     background: rgba(255,255,255,0.55);
     border-bottom: 3px solid var(--accent);
     color: var(--accent-dark);
+}
+
+/* --------------------------------
+   TAB SCREEN VISIBILITY (REQUIRED)
+   -------------------------------- */
+.screen {
+    display: none !important;
+    padding: 14px;
+    position: relative;
+    z-index: 1;
+}
+
+.screen.active {
+    display: block !important;
 }
 
 /* --------------------------------
@@ -367,19 +390,4 @@ textarea {
 
 .progress-dots span.active {
     background: var(--accent);
-}
-
-/* --------------------------------
-   TAB SCREEN VISIBILITY (required)
-   -------------------------------- */
-/* Keep screens properly spaced so they don't overlap */
-.screen {
-    display: none !important;
-    padding: 14px;
-    position: relative;
-    z-index: 1;
-}
-
-.screen.active {
-    display: block !important;
 }

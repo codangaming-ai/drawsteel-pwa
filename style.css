@@ -372,8 +372,12 @@ textarea {
 /* --------------------------------
    TAB SCREEN VISIBILITY (required)
    -------------------------------- */
+/* Keep screens properly spaced so they don't overlap */
 .screen {
     display: none !important;
+    padding: 14px;
+    position: relative;
+    z-index: 1;
 }
 
 .screen.active {

@@ -1,81 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Draw Steel Character Sheet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json" />
-
-    <!-- iOS Add to Home Screen Support -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
-
-    <title>Draw Steel Character Sheet</title>
-
-    <!-- Theme Colors -->
-    <meta name="theme-color" content="#b30000" />
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-<header class="app-header">
-    <h1>Draw Steel</h1>
-</header>
+  <!-- =============================== -->
+  <!-- HEADER / CHARACTER NAME -->
+  <!-- =============================== -->
+  <header style="padding: 20px; text-align: center;">
+    <h1 id="charName">Character</h1>
+  </header>
 
-<main id="app">
+  <!-- =============================== -->
+  <!-- STATS SECTION -->
+  <!-- =============================== -->
+  <section style="padding: 20px;">
 
-    <nav class="tab-bar">
-        <button class="tab-btn active" data-screen="sheet-screen">Sheet</button>
-        <button class="tab-btn" data-screen="background-screen">Background</button>
-        <button class="tab-btn" data-screen="abilities-screen">Abilities</button>
-        <button class="tab-btn" data-screen="builder-screen">Builder</button>
-    </nav>
-
-    <section id="sheet-screen" class="screen active">
-        <div id="sheet-container"></div>
-    </section>
-
-    <section id="background-screen" class="screen">
-        <div id="background-container"></div>
-    </section>
-
-    <section id="abilities-screen" class="screen">
-        <div id="abilities-container"></div>
-    </section>
-
-    <section id="builder-screen" class="screen">
-        <div id="builder-container"></div>
-    </section>
-</main>
-
-<div id="confirm-modal" class="modal hidden">
-    <div class="modal-box">
-        <h2 id="confirm-title"></h2>
-        <p id="confirm-text"></p>
-
-        <div id="confirm-options"></div>
-
-        <div class="modal-buttons">
-            <button id="confirm-cancel" class="btn-secondary">Cancel</button>
-            <button id="confirm-apply" class="btn-primary">Apply</button>
-        </div>
+    <div style="margin-bottom: 20px;">
+      <h2>Progress</h2>
+      <p><b>XP:</b> <span id="charXP">0</span></p>
+      <p><b>Victories:</b> <span id="charVictories">0</span></p>
     </div>
-</div>
 
-<script src="app.js"></script>
+    <button onclick="addVictory()">+ Victory</button>
+    <button onclick="restAndConvertVictories()">Rest (Convert to XP)</button>
 
-<script>
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("service-worker.js")
-            .then(() => console.log("Service Worker registered"))
-            .catch(err => console.error("SW registration failed:", err));
-    }
-</script>
+  </section>
+
+  <!-- =============================== -->
+  <!-- ABILITIES SECTION -->
+  <!-- =============================== -->
+  <section style="padding: 20px;">
+    <h2>Abilities</h2>
+
+    <div id="abilitiesList"></div>
+
+    <button onclick="showAddAbility()">Add Ability</button>
+  </section>
+
+
+  <!-- =============================== -->
+  <!-- MODAL -->
+  <!-- =============================== -->
+  <div id="modalOverlay" class="modal-overlay hidden">
+    <div class="modal-window">
+      <h2 id="modalTitle"></h2>
+
+      <div id="modalContent" class="modal-content"></div>
+
+      <button id="modalClose">Close</button>
+    </div>
+  </div>
+
+
+  <!-- =============================== -->
+  <!-- JAVASCRIPT -->
+  <!-- =============================== -->
+  <script src="app.js"></script>
 
 </body>
 </html>

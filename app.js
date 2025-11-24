@@ -266,67 +266,101 @@ function renderSheetScreen() {
 
   container.innerHTML = "";
 
+  // === CORE IDENTITY ===
   const panel = makeElement("div", "panel");
   panel.innerHTML = `
     <h2>Core Identity</h2>
-    <label>Character Name
-      <input type="text" id="char-name" value="${c.name}">
-    </label>
-    <label>Ancestry
-      <input type="text" id="char-ancestry" value="${c.ancestry}">
-    </label>
-    <label>Career
-      <input type="text" id="char-career" value="${c.career}">
-    </label>
-    <label>Class
-      <input type="text" id="char-class" value="${c.class}">
-    </label>
-    <label>Subclass
-      <input type="text" id="char-subclass" value="${c.subclass}">
-    </label>
-    <label>Level
-      <input type="number" id="char-level" value="${c.level}">
-    </label>
+    <div class="sheet-core">
+      <div class="sheet-core-row sheet-core-name">
+        <label>Character Name
+          <input type="text" id="char-name" value="${c.name}">
+        </label>
+        <div class="sheet-core-level">
+          <label>Level
+            <input type="number" id="char-level" value="${c.level}">
+          </label>
+        </div>
+      </div>
+
+      <div class="sheet-core-row">
+        <label>Ancestry
+          <input type="text" id="char-ancestry" value="${c.ancestry}">
+        </label>
+        <label>Career
+          <input type="text" id="char-career" value="${c.career}">
+        </label>
+      </div>
+
+      <div class="sheet-core-row">
+        <label>Class
+          <input type="text" id="char-class" value="${c.class}">
+        </label>
+        <label>Subclass
+          <input type="text" id="char-subclass" value="${c.subclass}">
+        </label>
+      </div>
+
+      <div class="sheet-core-row">
+        <label>Wealth
+          <input type="number" id="char-wealth" value="${c.wealth}">
+        </label>
+        <label>Renown
+          <input type="number" id="char-renown" value="${c.renown}">
+        </label>
+        <label>XP
+          <input type="number" id="char-xp" value="${c.xp}">
+        </label>
+      </div>
+
+      <div class="sheet-core-row">
         <div>
-      <span class="victory-label">Victories</span>
-      <div class="victory-row">
-        <span id="victories-value" class="victory-value">${c.victories}</span>
-        <button type="button" id="victories-plus" class="btn-secondary btn-small">+1</button>
-        <button type="button" id="victories-reset" class="btn-secondary btn-small">Reset</button>
+          <span class="victory-label">Victories</span>
+          <div class="victory-row">
+            <span id="victories-value" class="victory-value">${c.victories}</span>
+            <button type="button" id="victories-plus" class="btn-secondary btn-small">+1</button>
+            <button type="button" id="victories-reset" class="btn-secondary btn-small">Reset</button>
+          </div>
+        </div>
       </div>
     </div>
-    <label>Wealth / Renown / XP
-      <input type="number" id="char-wealth" value="${c.wealth}">
-      <input type="number" id="char-renown" value="${c.renown}">
-      <input type="number" id="char-xp" value="${c.xp}">
-    </label>
   `;
   container.appendChild(panel);
 
+  // === ATTRIBUTES & POTENCIES ===
   const attrsPanel = makeElement("div", "panel");
   attrsPanel.innerHTML = `
     <h2>Attributes & Potencies</h2>
-    <label>Might
-      <input type="number" id="attr-might" value="${c.attributes.might}">
-    </label>
-    <label>Agility
-      <input type="number" id="attr-agility" value="${c.attributes.agility}">
-    </label>
-    <label>Reason
-      <input type="number" id="attr-reason" value="${c.attributes.reason}">
-    </label>
-    <label>Intuition
-      <input type="number" id="attr-intuition" value="${c.attributes.intuition}">
-    </label>
-    <label>Presence
-      <input type="number" id="attr-presence" value="${c.attributes.presence}">
-    </label>
-
-    <p>Potencies (auto-calculated from highest attribute):</p>
-    <p>Weak: ${c.potencies.weak} | Average: ${c.potencies.average} | Strong: ${c.potencies.strong}</p>
+    <div class="sheet-row-two-col">
+      <div class="sheet-attrs">
+        <label>Might
+          <input type="number" id="attr-might" value="${c.attributes.might}">
+        </label>
+        <label>Agility
+          <input type="number" id="attr-agility" value="${c.attributes.agility}">
+        </label>
+        <label>Reason
+          <input type="number" id="attr-reason" value="${c.attributes.reason}">
+        </label>
+        <label>Intuition
+          <input type="number" id="attr-intuition" value="${c.attributes.intuition}">
+        </label>
+        <label>Presence
+          <input type="number" id="attr-presence" value="${c.attributes.presence}">
+        </label>
+      </div>
+      <div class="sheet-potencies">
+        <div class="potency-box">
+          <h3>Potencies</h3>
+          <p>Weak: ${c.potencies.weak}</p>
+          <p>Average: ${c.potencies.average}</p>
+          <p>Strong: ${c.potencies.strong}</p>
+        </div>
+      </div>
+    </div>
   `;
   container.appendChild(attrsPanel);
 
+  // === STAMINA & RESOURCES ===
   const staminaPanel = makeElement("div", "panel");
   staminaPanel.innerHTML = `
     <h2>Stamina & Resources</h2>
@@ -358,8 +392,15 @@ function renderSheetScreen() {
   `;
   container.appendChild(staminaPanel);
 
+  // === CONDITIONS ===
   const condPanel = makeElement("div", "panel");
-  condPanel.innerHTML = `<h2>Conditions</h2>`;
+  condPanel.innerHTML = `
+    <h2>Conditions</h2>
+    <div class="conditions-grid" id="conditions-grid"></div>
+  `;
+  container.appendChild(condPanel);
+
+  const condGrid = qs("#conditions-grid");
   Object.keys(c.conditions).forEach((cond) => {
     const id = "cond-" + cond;
     const row = document.createElement("label");
@@ -367,10 +408,10 @@ function renderSheetScreen() {
       <input type="checkbox" id="${id}" ${c.conditions[cond] ? "checked" : ""}>
       ${cond}
     `;
-    condPanel.appendChild(row);
+    condGrid.appendChild(row);
   });
-  container.appendChild(condPanel);
 
+  // === INVENTORY / FEATURES / TRAITS ===
   const invPanel = makeElement("div", "panel");
   invPanel.innerHTML = `
     <h2>Inventory / Features / Traits</h2>
@@ -386,7 +427,7 @@ function renderSheetScreen() {
   `;
   container.appendChild(invPanel);
 
-  // Attach handlers
+  // ==== ATTACH HANDLERS ====
   qs("#char-name").addEventListener("input", (e) => { character.name = e.target.value; saveCharacter(); });
   qs("#char-ancestry").addEventListener("input", (e) => { character.ancestry = e.target.value; saveCharacter(); });
   qs("#char-career").addEventListener("input", (e) => { character.career = e.target.value; saveCharacter(); });
@@ -397,24 +438,27 @@ function renderSheetScreen() {
   });
   qs("#char-subclass").addEventListener("input", (e) => { character.subclass = e.target.value; saveCharacter(); });
   qs("#char-level").addEventListener("input", (e) => { character.level = parseInt(e.target.value || "1", 10); saveCharacter(); });
+
   qs("#char-wealth").addEventListener("input", (e) => { character.wealth = parseInt(e.target.value || "0", 10); saveCharacter(); });
   qs("#char-renown").addEventListener("input", (e) => { character.renown = parseInt(e.target.value || "0", 10); saveCharacter(); });
   qs("#char-xp").addEventListener("input", (e) => { character.xp = parseInt(e.target.value || "0", 10); saveCharacter(); });
-const victoriesValueEl = qs("#victories-value");
-const victoriesPlusBtn = qs("#victories-plus");
-const victoriesResetBtn = qs("#victories-reset");
 
-victoriesPlusBtn.addEventListener("click", () => {
-  character.victories = (character.victories || 0) + 1;
-  saveCharacter();
-  victoriesValueEl.textContent = character.victories;
-});
+  // Victories buttons (uses the UI you wired up earlier)
+  const victoriesValueEl = qs("#victories-value");
+  const victoriesPlusBtn = qs("#victories-plus");
+  const victoriesResetBtn = qs("#victories-reset");
 
-victoriesResetBtn.addEventListener("click", () => {
-  character.victories = 0;
-  saveCharacter();
-  victoriesValueEl.textContent = character.victories;
-});
+  victoriesPlusBtn.addEventListener("click", () => {
+    character.victories = (character.victories || 0) + 1;
+    saveCharacter();
+    victoriesValueEl.textContent = character.victories;
+  });
+
+  victoriesResetBtn.addEventListener("click", () => {
+    character.victories = 0;
+    saveCharacter();
+    victoriesValueEl.textContent = character.victories;
+  });
 
   ["might","agility","reason","intuition","presence"].forEach((attr) => {
     const id = "attr-" + attr;

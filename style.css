@@ -368,3 +368,14 @@ textarea {
 .progress-dots span.active {
     background: var(--accent);
 }
+
+/* --------------------------------
+   TAB SCREEN VISIBILITY (required)
+   -------------------------------- */
+.screen {
+    display: none !important;
+}
+
+.screen.active {
+    display: block !important;
+}

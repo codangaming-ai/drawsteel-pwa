@@ -247,4 +247,29 @@ textarea {
 
 .hidden {
     display: none;
+}.victory-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.victory-label {
+    font-weight: bold;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.victory-value {
+    min-width: 32px;
+    text-align: center;
+    padding: 4px 8px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    background: #fff;
+}
+
+.btn-small {
+    padding: 4px 8px;
+    font-size: 13px;
 }

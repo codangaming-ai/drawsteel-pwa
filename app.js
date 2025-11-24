@@ -313,12 +313,12 @@ function renderSheetScreen() {
       </div>
 
       <div class="sheet-core-row">
-        <div>
+        <div class="victory-wrapper">
           <span class="victory-label">Victories</span>
           <div class="victory-row">
             <span id="victories-value" class="victory-value">${c.victories}</span>
             <button type="button" id="victories-plus" class="btn-secondary btn-small">+1</button>
-            <button type="button" id="victories-reset" class="btn-secondary btn-small">Reset</button>
+            <button type="button" id="victories-rest" class="btn-secondary btn-small">Rest</button>
           </div>
         </div>
       </div>
@@ -327,7 +327,7 @@ function renderSheetScreen() {
   container.appendChild(panel);
 
   // === ATTRIBUTES & POTENCIES ===
-    const attrsPanel = makeElement("div", "panel");
+  const attrsPanel = makeElement("div", "panel");
   attrsPanel.innerHTML = `
     <h2>Attributes & Potencies</h2>
 
@@ -459,10 +459,10 @@ function renderSheetScreen() {
   qs("#char-renown").addEventListener("input", (e) => { character.renown = parseInt(e.target.value || "0", 10); saveCharacter(); });
   qs("#char-xp").addEventListener("input", (e) => { character.xp = parseInt(e.target.value || "0", 10); saveCharacter(); });
 
-  // Victories buttons (uses the UI you wired up earlier)
+  // Victories buttons
   const victoriesValueEl = qs("#victories-value");
   const victoriesPlusBtn = qs("#victories-plus");
-  const victoriesResetBtn = qs("#victories-reset");
+  const victoriesRestBtn = qs("#victories-rest");
 
   victoriesPlusBtn.addEventListener("click", () => {
     character.victories = (character.victories || 0) + 1;
@@ -470,10 +470,52 @@ function renderSheetScreen() {
     victoriesValueEl.textContent = character.victories;
   });
 
-  victoriesResetBtn.addEventListener("click", () => {
-    character.victories = 0;
-    saveCharacter();
-    victoriesValueEl.textContent = character.victories;
+  // Rest: confirm converting victories into XP, then reset victories
+  victoriesRestBtn.addEventListener("click", () => {
+    const gained = character.victories || 0;
+    if (!gained) {
+      // No victories to convert
+      return;
+    }
+
+    const modal = qs("#confirm-modal");
+    const title = qs("#confirm-title");
+    const text = qs("#confirm-text");
+    const optionsBox = qs("#confirm-options");
+    const btnCancel = qs("#confirm-cancel");
+    const btnApply = qs("#confirm-apply");
+
+    title.textContent = "Take a Rest?";
+    text.textContent = `Convert ${gained} Victories into XP?`;
+
+    optionsBox.innerHTML = `
+      <p>You will gain <strong>${gained}</strong> XP and reset your Victories to 0.</p>
+    `;
+
+    btnCancel.onclick = () => {
+      hideConfirmModal();
+    };
+
+    btnApply.onclick = () => {
+      const multiplier = 1; // 1:1 conversion; change here if you want a different ratio
+      const totalGain = gained * multiplier;
+
+      character.xp = (character.xp || 0) + totalGain;
+      character.victories = 0;
+
+      saveCharacter();
+
+      // Update UI
+      victoriesValueEl.textContent = character.victories;
+      const xpInput = qs("#char-xp");
+      if (xpInput) {
+        xpInput.value = character.xp;
+      }
+
+      hideConfirmModal();
+    };
+
+    showConfirmModal();
   });
 
   ["might","agility","reason","intuition","presence"].forEach((attr) => {

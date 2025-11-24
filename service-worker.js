@@ -1,12 +1,12 @@
 const CACHE_NAME = "drawsteel-cache-v1";
 const APP_SHELL = [
-  "/index.html",
-  "/style.css",
-  "/app.js",
-  "/manifest.json",
-  "/icons/icon_192.png",
-  "/icons/icon_512.png",
-  "/icons/apple-touch-icon.png"
+  "index.html",
+  "style.css",
+  "app.js",
+  "manifest.json",
+  "icons/icon_192.png",
+  "icons/icon_512.png",
+  "icons/apple-touch-icon.png"
 ];
 
 self.addEventListener("install", (event) => {
@@ -20,9 +20,8 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
-        keys
-          .filter((key) => key !== CACHE_NAME)
-          .map((key) => caches.delete(key))
+        keys.filter((key) => key !== CACHE_NAME)
+            .map((key) => caches.delete(key))
       )
     )
   );
@@ -32,6 +31,7 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const request = event.request;
 
+  // network-first for app.js
   if (request.url.endsWith("app.js")) {
     event.respondWith(
       fetch(request)
@@ -45,6 +45,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // cache-first for everything else
   event.respondWith(
     caches.match(request).then((cached) => {
       return (

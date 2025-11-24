@@ -486,6 +486,19 @@ function renderSheetScreen() {
     });
   });
 
+  // Plus / minus buttons for attributes
+  document.querySelectorAll("button[data-attr]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const attr = btn.getAttribute("data-attr");
+      const delta = parseInt(btn.getAttribute("data-delta"), 10) || 0;
+      const current = character.attributes[attr] || 0;
+      character.attributes[attr] = current + delta;
+      computePotencies();
+      saveCharacter();
+      renderSheetScreen();
+    });
+  });
+
   qs("#stamina-current").addEventListener("input", (e) => { character.staminaCurrent = parseInt(e.target.value || "0", 10); saveCharacter(); });
   qs("#stamina-temp").addEventListener("input", (e) => { character.staminaTemp = parseInt(e.target.value || "0", 10); saveCharacter(); });
   qs("#stamina-max").addEventListener("input", (e) => { character.staminaMax = parseInt(e.target.value || "0", 10); saveCharacter(); });

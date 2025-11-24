@@ -1,6 +1,5 @@
 const CACHE_NAME = "drawsteel-cache-v1";
 const APP_SHELL = [
-  "/",
   "/index.html",
   "/style.css",
   "/app.js",

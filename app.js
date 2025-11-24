@@ -287,9 +287,14 @@ function renderSheetScreen() {
     <label>Level
       <input type="number" id="char-level" value="${c.level}">
     </label>
-    <label>Victories
-      <input type="number" id="char-victories" value="${c.victories}">
-    </label>
+        <div>
+      <span class="victory-label">Victories</span>
+      <div class="victory-row">
+        <span id="victories-value" class="victory-value">${c.victories}</span>
+        <button type="button" id="victories-plus" class="btn-secondary btn-small">+1</button>
+        <button type="button" id="victories-reset" class="btn-secondary btn-small">Reset</button>
+      </div>
+    </div>
     <label>Wealth / Renown / XP
       <input type="number" id="char-wealth" value="${c.wealth}">
       <input type="number" id="char-renown" value="${c.renown}">
